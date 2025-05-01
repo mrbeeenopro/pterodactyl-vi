@@ -1,0 +1,33 @@
+<?php
+
+return [
+    'permissions' => [
+        'websocket_*' => 'Cho phép truy cập websocket cho máy chủ này.',
+        'control_console' => 'Cho phép người dùng gửi dữ liệu tới bảng điều khiển của máy chủ.',
+        'control_start' => 'Cho phép người dùng khởi động phiên bản máy chủ.',
+        'control_stop' => 'Cho phép người dùng dừng phiên bản máy chủ.',
+        'control_restart' => 'Cho phép người dùng khởi động lại phiên bản máy chủ.',
+        'control_kill' => 'Cho phép người dùng dừng hẳn phiên bản máy chủ.',
+        'user_create' => 'Cho phép người dùng tạo tài khoản mới cho máy chủ.',
+        'user_read' => 'Cho phép người dùng xem danh sách người dùng liên quan đến máy chủ này.',
+        'user_update' => 'Cho phép người dùng chỉnh sửa thông tin của các người dùng khác liên quan đến máy chủ này.',
+        'user_delete' => 'Cho phép người dùng xóa các tài khoản khác liên quan đến máy chủ này.',
+        'file_create' => 'Cho phép người dùng tạo tệp tin và thư mục mới.',
+        'file_read' => 'Cho phép người dùng xem các tệp tin và thư mục liên quan đến phiên bản máy chủ này, cũng như nội dung của chúng.',
+        'file_update' => 'Cho phép người dùng cập nhật tệp tin và thư mục liên quan đến máy chủ.',
+        'file_delete' => 'Cho phép người dùng xóa các tệp tin và thư mục.',
+        'file_archive' => 'Cho phép người dùng tạo tệp lưu trữ và giải nén các tệp lưu trữ hiện có.',
+        'file_sftp' => 'Cho phép người dùng thực hiện các hành động tệp trên thông qua một ứng dụng SFTP.',
+        'allocation_read' => 'Cho phép truy cập vào các trang quản lý phân bổ của máy chủ.',
+        'allocation_update' => 'Cho phép người dùng chỉnh sửa các phân bổ của máy chủ.',
+        'database_create' => 'Cho phép người dùng tạo cơ sở dữ liệu mới cho máy chủ.',
+        'database_read' => 'Cho phép người dùng xem cơ sở dữ liệu của máy chủ.',
+        'database_update' => 'Cho phép người dùng chỉnh sửa cơ sở dữ liệu. Nếu không có quyền "Xem mật khẩu", người dùng sẽ không thể thay đổi mật khẩu.',
+        'database_delete' => 'Cho phép người dùng xóa một cơ sở dữ liệu.',
+        'database_view_password' => 'Cho phép người dùng xem mật khẩu cơ sở dữ liệu trong hệ thống.',
+        'schedule_create' => 'Cho phép người dùng tạo lịch trình mới cho máy chủ.',
+        'schedule_read' => 'Cho phép người dùng xem các lịch trình của máy chủ.',
+        'schedule_update' => 'Cho phép người dùng chỉnh sửa lịch trình hiện có của máy chủ.',
+        'schedule_delete' => 'Cho phép người dùng xóa lịch trình của máy chủ.',
+    ],
+];
