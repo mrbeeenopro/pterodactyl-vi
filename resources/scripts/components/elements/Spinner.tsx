@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react';
-import styled from 'styled-components/macro';
+import styled, { css, keyframes } from 'styled-components/macro';
 import tw from 'twin.macro';
-import { HashLoader } from 'react-spinners';
 import ErrorBoundary from '@/components/elements/ErrorBoundary';
 
 export type SpinnerSize = 'small' | 'base' | 'large';
@@ -10,7 +9,6 @@ interface Props {
     size?: SpinnerSize;
     centered?: boolean;
     isBlue?: boolean;
-    fullScreen?: boolean;
 }
 
 interface Spinner extends React.FC<Props> {
@@ -18,54 +16,39 @@ interface Spinner extends React.FC<Props> {
     Suspense: React.FC<Props>;
 }
 
-const LoadingText = styled.p`
-    ${tw`mt-2 text-sm text-gray-500 text-center`};
+const spin = keyframes`
+    to { transform: rotate(360deg); }
 `;
 
-const CenteredContainer = styled.div<Props>`
-    ${tw`flex flex-col items-center`};
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%; /* Cover the entire screen */
-    background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent black background */
-    backdrop-filter: blur(5px); /* Apply a blur effect to the background */
-    z-index: 9999;
-    justify-content: center;
+// noinspection CssOverwrittenProperties
+const SpinnerComponent = styled.div<Props>`
+    ${tw`w-8 h-8`};
+    border-width: 3px;
+    border-radius: 50%;
+    animation: ${spin} 1s cubic-bezier(0.55, 0.25, 0.25, 0.7) infinite;
+
+    ${(props) =>
+        props.size === 'small'
+            ? tw`w-4 h-4 border-2`
+            : props.size === 'large'
+            ? css`
+                  ${tw`w-16 h-16`};
+                  border-width: 6px;
+              `
+            : null};
+
+    border-color: ${(props) => (!props.isBlue ? 'rgba(255, 255, 255, 0.2)' : 'hsla(212, 92%, 43%, 0.2)')};
+    border-top-color: ${(props) => (!props.isBlue ? 'rgb(255, 255, 255)' : 'hsl(212, 92%, 43%)')};
 `;
 
-const getSizeProps = (size?: SpinnerSize) => {
-    switch (size) {
-        case 'small':
-            return { size: 20 }; // Adjust size as needed
-        case 'large':
-            return { size: 60 }; // Adjust size as needed
-        default:
-            return { size: 40 }; // Adjust size as needed
-    }
-};
-
-const Spinner: Spinner = ({ centered, size = 'base', isBlue = false, fullScreen = false }) => {
-    const { size: loaderSize } = getSizeProps(size);
-    const color = isBlue ? '#27a6ec' : '#ffffff'; // Set color to #27a6ec if isBlue is true
-
-    const loader = (
-        <>
-            <HashLoader color={color} size={loaderSize} />
-            <LoadingText>Đang tải...</LoadingText>
-        </>
-    );
-
-    return fullScreen ? (
-        <CenteredContainer>{loader}</CenteredContainer>
-    ) : centered ? (
-        <CenteredContainer>{loader}</CenteredContainer>
+const Spinner: Spinner = ({ centered, ...props }) =>
+    centered ? (
+        <div css={[tw`flex justify-center items-center`, props.size === 'large' ? tw`m-20` : tw`m-6`]}>
+            <SpinnerComponent {...props} />
+        </div>
     ) : (
-        loader
+        <SpinnerComponent {...props} />
     );
-};
-
 Spinner.displayName = 'Spinner';
 
 Spinner.Size = {
